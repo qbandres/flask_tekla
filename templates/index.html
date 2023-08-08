@@ -1,0 +1,80 @@
+{% extends 'layout.html'%}
+
+{% block body%}
+
+<!-- Esta Funcion te permite publicar la emisión de los qu sale en flash y lo guardas en messages-->
+{% with messages = get_flashed_messages() %}    
+{% if messages %}
+{% for messages in messages%}
+
+<p>{{messages}}</p>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<form action="/add_items" method="POST">
+
+    <input type="number" name = 'id' placeholder="id" size=10>
+    <input type="text" class="tex" name = 'barcode' placeholder="barcode">
+    <input type="text" class="tex" name = 'esp' placeholder="esp" size="10">
+    <input type="number" class="tex" name = 'quantity' placeholder="quantity" size="5">
+    <input type="number" class="tex" name = 'weight' placeholder="weight" size=10>
+    <input type="number" class="tex" name = 'ratio' placeholder="ratio" size="10">
+    <input type="date" name = 'traslado' placeholder="traslado" value="0001-01-01">
+    <input type="date" name = 'pre_ensamble' placeholder="pre_ensamble" value="0001-01-01">
+    <input type="date" name = 'montaje' placeholder="montaje" value="0001-01-01">
+    <input type="date" name = 'torque' placeholder="torque" value="0001-01-01">
+    <input type="date" name = 'punch' placeholder="punch" value="0001-01-01">
+    
+    <button type="submit">Save</button>
+</form>
+
+<br><br>
+<h3>Listado de elementos agregados</h3>
+<table cellspacing="10" cellpadding="10" border="3">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>BARCODE</td>
+            <td>ESP</td>
+            <td>QANTITY</td>
+			<td>WEIGHT</td>
+			<td>RATIO</td>
+			<td>TRASLADO</td>
+			<td>PRE_EMSAMBLE</td>
+            <td>MONTAJE</td>
+            <td>TORQUE</td>
+            <td>PUNCH</td>
+            <td>OPERATIONS</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contacts in contacts  %}
+
+        <tr>
+            <td>{{contacts.0}}</td>
+            <td>{{contacts.1}}</td>
+            <td>{{contacts.2}}</td>
+            <td>{{contacts.3}}</td>
+            <td>{{contacts.4}}</td>
+            <td>{{contacts.5}}</td>
+            <td>{{contacts.6}}</td>
+            <td>{{contacts.7}}</td>
+            <td>{{contacts.8}}</td>
+            <td>{{contacts.9}}</td>
+            <td>{{contacts.10}}</td>
+            <td>
+                <a href="/edit/{{contacts.0}}">Edit</a>
+                <a href="/delete/{{contacts.0}}">Delete</a>
+            </td>
+        </tr>
+
+
+
+        {%endfor%}
+    </tbody>
+</table>
+
+{%endblock%}
